@@ -29,9 +29,7 @@ namespace LibraryApi.Repositories
             }
             catch (Exception ex)
             {
-                // Manejar cualquier excepción que pueda ocurrir al guardar los cambios
                 Console.WriteLine($"An error occurred while adding the author: {ex.Message}");
-                // Puedes lanzar una excepción personalizada o manejarla de otra manera según sea necesario
             }
         }
 
@@ -73,7 +71,33 @@ namespace LibraryApi.Repositories
 
         void IAuthorRepository.UpdateAuthor(Author author)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Buscar el autor por su id en el contexto
+                var existingAuthor = libraryContext.Authors.Find(author.Id);
+
+                if (existingAuthor != null)
+                {
+                    // Actualizar las propiedades del autor existente con las del autor pasado como argumento
+                    existingAuthor.Name = author.Name;
+                    existingAuthor.LastName = author.LastName;
+                    existingAuthor.Birth = author.Birth;
+                    existingAuthor.CountryCode = author.CountryCode;
+
+                    // Guardar los cambios en la base de datos
+                    libraryContext.SaveChanges();
+
+                    Console.WriteLine("Author updated successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Author not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while updating the author: {ex.Message}");
+            }
         }
     }
 }
