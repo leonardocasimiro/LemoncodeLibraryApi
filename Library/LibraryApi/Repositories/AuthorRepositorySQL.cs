@@ -8,57 +8,66 @@ namespace LibraryApi.Repositories
     public class AuthorRepositorySQL : IAuthorRepository
     {
         LibraryContext libraryContext = new LibraryContext();
-    /*
-    try
-    {
-        //soccerContext.Teams.Remove(realMadrid);
-        await libraryContext.Authors.AddRangeAsync(authors);
-    await libraryContext.SaveChangesAsync();
-    Console.WriteLine("Data Inserted");
-    }
-    catch (Exception exception)
-{
-    Console.WriteLine(exception.ToString());
-}
-    */
+
         void IAuthorRepository.AddAuthor(Author author)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Agregar el autor al contexto
+                libraryContext.Authors.Add(author);
+
+                // Agregar lista de autores
+                /*
+                var authors = new List<Author> { author };
+                libraryContext.Authors.AddRangeAsync(authors);
+                */
+
+                // Guardar los cambios en la base de datos
+                libraryContext.SaveChanges();
+
+                Console.WriteLine("Author added successfully.");
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que pueda ocurrir al guardar los cambios
+                Console.WriteLine($"An error occurred while adding the author: {ex.Message}");
+                // Puedes lanzar una excepción personalizada o manejarla de otra manera según sea necesario
+            }
         }
 
         void IAuthorRepository.DeleteAuthor(int id)
-        {
-            throw new NotImplementedException();
+        {        
+            // Buscar el autor por su id en el contexto
+            var authorToDelete = libraryContext.Authors.Find(id);
+
+            if (authorToDelete != null)
+            {
+                // Borrar el author
+                libraryContext.Authors.Remove(authorToDelete);
+                try
+                {
+                    //libraryContext.SaveChanges();
+                    libraryContext.SaveChanges();
+                    Console.WriteLine("Author deleted successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while deleting the author: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Author not found.");
+            }          
         }
 
         Author IAuthorRepository.GetAuthorById(int id)
         {
-            //throw new NotImplementedException();
             return libraryContext.Authors.Find(id);
         }
 
         List<Author> IAuthorRepository.GetAuthors()
         {
-            //throw new NotImplementedException();
-            /*
-            var libro3 = new Book
-            {
-                Title = "Los tropiezos de Rocinateaaaa",
-                PublisedOn = new DateTime(1977, 11, 29, 19, 0, 0),
-                Description = "Trata sobre los torpes pasos de este falco rocínaaaaaa flcao",
-            };
-            var Author2 = new Author
-            {
-                Name = "Tamas",
-                LastName = "Terbado",
-                Birth = new DateTime(1975, 11, 29, 19, 0, 0),
-                CountryCode = "29603",
-                Books = new List<Book> { libro3 }
-            };
-            var authors = new List<Author> { Author2 };
-            libraryContext.Authors.AddRangeAsync(authors);
-            libraryContext.SaveChangesAsync();
-            */
             return libraryContext.Authors.ToList();
         }
 
@@ -68,3 +77,22 @@ namespace LibraryApi.Repositories
         }
     }
 }
+
+//Add Author;
+/*
+{
+  "id": 2,
+  "name": "Vigil",
+  "lastName": "De Quiñones",
+  "birth": "1824-02-16T13:39:19.175Z",
+  "countryCode": "29603",
+  "books": [
+    {
+      "id": 4,
+      "title": "Rocin flaco pero sano",
+      "publisedOn": "2024-02-16T13:39:19.175Z",
+      "description": "Las piedras del camino"
+    }
+  ]
+}
+*/
