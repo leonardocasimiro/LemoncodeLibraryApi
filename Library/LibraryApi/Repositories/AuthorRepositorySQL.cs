@@ -25,11 +25,11 @@ namespace LibraryApi.Repositories
                 // Guardar los cambios en la base de datos
                 libraryContext.SaveChanges();
 
-                Console.WriteLine("Author added successfully.");
+                Console.WriteLine("Author añadido correctamente.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while adding the author: {ex.Message}");
+                Console.WriteLine($"Ocurrio el siguiente error añadiendo author: {ex.Message}");
             }
         }
 
@@ -46,16 +46,16 @@ namespace LibraryApi.Repositories
                 {
                     //libraryContext.SaveChanges();
                     libraryContext.SaveChanges();
-                    Console.WriteLine("Author deleted successfully.");
+                    Console.WriteLine("Author borrado de manera correcta.");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred while deleting the author: {ex.Message}");
+                    Console.WriteLine($"Un error ha ocurrido al intentar borrar el author: {ex.Message}");
                 }
             }
             else
             {
-                Console.WriteLine("Author not found.");
+                Console.WriteLine("Author no encontrado.");
             }          
         }
 
@@ -87,16 +87,16 @@ namespace LibraryApi.Repositories
                     // Guardar los cambios en la base de datos
                     libraryContext.SaveChanges();
 
-                    Console.WriteLine("Author updated successfully.");
+                    Console.WriteLine("Author actualizado correctamente.");
                 }
                 else
                 {
-                    Console.WriteLine("Author not found.");
+                    Console.WriteLine("Author no encontrado.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the author: {ex.Message}");
+                Console.WriteLine($"Un erros ha sucedico al intentar actualizar el author: {ex.Message}");
             }
         }
     }

@@ -55,7 +55,7 @@ static async Task AddAuthors()
         //soccerContext.Teams.Remove(realMadrid);
         await libraryContext.Authors.AddRangeAsync(authors);
         await libraryContext.SaveChangesAsync();
-        Console.WriteLine("Data Inserted");
+        Console.WriteLine("Datos insertados");
     }
     catch (Exception exception)
     {
